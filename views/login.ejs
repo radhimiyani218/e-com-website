@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="/css/index.css">
+<body>
+    <%- include('nav') %>
+        <form  action="/user/login" method="post" id="form">
+            <label>Email </label>
+            <input type="text" name="email" id="email" placeholder="abc@gmail.com">
+            <label>Password </label>
+            <input type="text" name="password" id="password" placeholder="At least 6 characters"><br><br>
+            <a href="#" id="forgot">Forgot password ?</a><br><br>
+            <button type="submit" class="btn">Sign In</button><br><br>
+            <p id="p">Don't have an account yet ? <a href="/user/signup">Sign Up</a></p>
+        </form> 
+</body>
+</html>

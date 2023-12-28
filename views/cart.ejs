@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cart</title>
+  </head>
+  <style>
+      .container {
+        max-width: 1140px;
+        margin: auto;
+      }
+      #box {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     margin-top: 50px;
+     
+    }
+      img {
+      margin-top: 20px;
+      border-radius: 12px;
+      margin-left: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0px 0px 15px rgb(195, 193, 193);
+      }
+      h2,h3,h4,p,span{
+        font-family: sans-serif;
+       margin-left: 50px;
+       padding: 5px;
+       color: rgb(58, 56, 56);
+       
+      }
+  </style>
+  <body>
+    <%- include('nav') %>
+   <div class="container">
+    <div id="box">
+    </div>
+   </div>
+
+  </body>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+      const updateQty = (id, qty) => {
+    fetch(`/product/cart/update/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ qty })
+    })
+        .then((res) => res.json())
+        .then((response) => get())
+        .catch((err) => console.log(err))
+}
+
+const handlePayment = async (amount) => {
+    let res = await fetch("/product/payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amount })
+    })
+    let order = await res.json()
+    console.log(order);
+    let options = {key: "rzp_test_K5oH0ht3uj6cTB", amount: order.amount }
+    let razorpay = new Razorpay(options)
+    razorpay.open()
+}
+      const display = (data) => {
+        let totalprice=0
+      document.getElementById("box").innerHTML = "";
+      data.map((element) => {
+        let ele=element.productID
+        totalprice += ele.price * element.qty
+        let img = document.createElement("img");
+        img.src = ele.img;
+        img.style.width = "250px";
+        let title = document.createElement("h1");
+        title.innerHTML = `title:${ele.title}`;
+        let price = document.createElement("h2");
+        price.innerHTML = ele.price;
+        // let desc = document.createElement("p");
+        // desc.innerHTML = ele.desc;
+        // let category = document.createElement("h3");
+        // category.innerHTML = ele.category;
+        // let size = document.createElement("h4");
+        // size.innerHTML = ele.size;
+        // let stock = document.createElement("span");
+        // stock.innerHTML = ele.stock;
+        // let colour = document.createElement("p");
+        // colour.innerHTML = ele.colour;
+        let btn2 = document.createElement("button");
+        btn2.innerHTML = "+";
+        btn2.addEventListener("click", () => updateQty(element._id, +1));
+        let btn1 = document.createElement("button");
+        btn1.innerHTML = "-";
+        btn1.addEventListener("click", () => updateQty(element._id, -1));
+        let qty = document.createElement("button");
+        qty.innerHTML = `QTY ${element.qty}`;
+        
+
+        let div = document.createElement("div");
+        div.append(
+          img,
+          title,
+          price,
+          // desc,
+          // category,
+          // size,
+          // stock,
+          // colour,
+          btn2,
+          qty,
+          btn1
+        );
+      document.getElementById("box").append(div);
+      });
+      let priceBtn = document.createElement("button")
+    priceBtn.innerHTML = `Total Price: ${totalprice}`
+    document.getElementById("box").append(priceBtn)
+    priceBtn.addEventListener("click", () => handlePayment(totalprice))
+    };
+
+    const get=async () => {
+    fetch("/product/cartfind")
+        .then((response) => response.json())
+        .then((response) => display(response))
+        .catch((error) => console.log(error));
+}
+get()
+  </script>
+</html>

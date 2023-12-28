@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>users</title>
+    <style>
+        #box {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      img {
+        margin: 60px;
+        border-radius: 12px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .container {
+        max-width: 1140px;
+        margin: auto;
+      }
+    </style>
+</head>
+<body>
+    <%- include('nav') %>
+    <div id="box"></div>
+</body>
+<script>
+    const display = (data) => {
+      document.getElementById("box").innerHTML = "";
+      data.map((ele) => {
+        let img = document.createElement("img");
+        img.src = ele.img;
+        img.style.width="200px"
+        let title = document.createElement("h1");
+        title.innerHTML = ele.title;
+        let price = document.createElement("h2");
+        price.innerHTML = ele.price;
+        let desc = document.createElement("p");
+        desc.innerHTML = ele.desc;
+        let category = document.createElement("h3");
+        category.innerHTML = ele.category;
+        let stock = document.createElement("span");
+        stock.innerHTML =ele.stock;
+        let size = document.createElement("h4");
+        size.innerHTML = ele.size;
+        let colour = document.createElement("p");
+        colour.innerHTML = ele.colour;
+        let btn1 = document.createElement("button");
+        btn1.innerHTML = "Add to Cart";
+        let div = document.createElement("div");
+        div.append(img, title,price, desc,category,size,stock,colour,btn1);
+        document.getElementById("box").append(div);
+      });
+    };
+  
+    fetch("/product/admin")
+      .then((response) => response.json())
+      .then((response) => display(response))
+      .catch((error) => console.log(error));
+  </script>
+</html>

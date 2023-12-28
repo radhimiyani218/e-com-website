@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>productpage</title>  
+</head>
+<body>
+    <%- include('nav') %>
+        <form action="/product/productpage" method="post" id="form">
+            <h1 id="addproduct">Add Product</h1>
+            <label>Image : </label>
+            <input type="url" name="img" id="img">
+            <label>Title :</label>
+            <input type="text" name="title" id="title">
+            <label>Price :</label> 
+            <input type="number" name="price" id="price">
+            <label>Description :</label> 
+            <input type="text" name="desc" id="desc">
+            <label>Category :</label> 
+            <input type="text" name="category" id="category">
+            <label>Stoke :</label> 
+            <input type="number" name="stock" id="stock">
+            <label>Size :</label> 
+            <input type="text" name="size" id="size">
+            <label>Colour :</label> 
+            <input type="text" name="colour" id="colour">
+            <input type="Submit" value="submit" id="btn">
+          </form>
+</body>
+</html>

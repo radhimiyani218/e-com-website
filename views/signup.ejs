@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    <link rel="stylesheet" href="/css/index.css">
+<body>
+    <%- include('nav') %>
+    <form  action="/user/signup"  method="post" id="form">
+        <label>Username </label>
+        <input type="text" name="username" id="username" placeholder="Enter your name" required>
+        <label>Email </label>
+        <input type="text" name="email" id="email" placeholder="abc@gmail.com" required>
+        <label>Password </label> 
+        <input type="text" name="password" id="password" placeholder="At least 6 characters" required><br><br>
+        <select name="role" id="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button type="submit" class="btn">Sign up</button>
+        <p id="p">Already have an account ? <a href="/user/login">Sign In</a></p>
+    </form>
+</body>
+</html>
