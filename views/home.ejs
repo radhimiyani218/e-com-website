@@ -78,6 +78,7 @@ const handlecart = (id) => {
         let colour = document.createElement("p");
         colour.innerHTML = `Colour:${ele.colour}`;
         let btn1 = document.createElement("button");
+        btn1.setAttribute("class","hbtn")
         btn1.innerHTML = "Add to Cart";
         btn1.addEventListener("click", () => {
         handlecart(ele._id);

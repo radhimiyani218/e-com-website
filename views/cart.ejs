@@ -36,6 +36,7 @@
    <div class="container">
     <div id="box">
     </div>
+    <div id="box1"></div>
    </div>
 
   </body>
@@ -67,8 +68,10 @@ const handlePayment = async (amount) => {
       const display = (data) => {
         let totalprice=0
       document.getElementById("box").innerHTML = "";
+      document.getElementById("box1").innerHTML = "";
       data.map((element) => {
         let ele=element.productID
+        console.log(ele);
         totalprice += ele.price * element.qty
         let img = document.createElement("img");
         img.src = ele.img;
@@ -77,16 +80,6 @@ const handlePayment = async (amount) => {
         title.innerHTML = `title:${ele.title}`;
         let price = document.createElement("h2");
         price.innerHTML = ele.price;
-        // let desc = document.createElement("p");
-        // desc.innerHTML = ele.desc;
-        // let category = document.createElement("h3");
-        // category.innerHTML = ele.category;
-        // let size = document.createElement("h4");
-        // size.innerHTML = ele.size;
-        // let stock = document.createElement("span");
-        // stock.innerHTML = ele.stock;
-        // let colour = document.createElement("p");
-        // colour.innerHTML = ele.colour;
         let btn2 = document.createElement("button");
         btn2.innerHTML = "+";
         btn2.addEventListener("click", () => updateQty(element._id, +1));
@@ -102,11 +95,6 @@ const handlePayment = async (amount) => {
           img,
           title,
           price,
-          // desc,
-          // category,
-          // size,
-          // stock,
-          // colour,
           btn2,
           qty,
           btn1
@@ -115,7 +103,7 @@ const handlePayment = async (amount) => {
       });
       let priceBtn = document.createElement("button")
     priceBtn.innerHTML = `Total Price: ${totalprice}`
-    document.getElementById("box").append(priceBtn)
+    document.getElementById("box1").append(priceBtn)
     priceBtn.addEventListener("click", () => handlePayment(totalprice))
     };
 
@@ -123,7 +111,7 @@ const handlePayment = async (amount) => {
     fetch("/product/cartfind")
         .then((response) => response.json())
         .then((response) => display(response))
-        .catch((error) => console.log(error));
+        // .catch((error) => console.log(error));
 }
 get()
   </script>

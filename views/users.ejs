@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>users</title>
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
     <style>
-        #box {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-      }
-      img {
-        margin: 60px;
-        border-radius: 12px;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
       .container {
         max-width: 1140px;
         margin: auto;
+      }
+      #box {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     margin-top: 50px;  
+    }
+      img {
+      margin-top: 20px;
+      border-radius: 12px;
+      margin-left: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0px 0px 15px rgb(195, 193, 193);
+      }
+      h2,h3,h4,p,span{
+        font-family: sans-serif;
+       margin-left: 50px;
+       padding: 5px;
+       color: rgb(58, 56, 56);
       }
     </style>
 </head>
@@ -36,9 +41,9 @@
         let img = document.createElement("img");
         img.src = ele.img;
         img.style.width="200px"
-        let title = document.createElement("h1");
+        let title = document.createElement("h2");
         title.innerHTML = ele.title;
-        let price = document.createElement("h2");
+        let price = document.createElement("h3");
         price.innerHTML = ele.price;
         let desc = document.createElement("p");
         desc.innerHTML = ele.desc;

@@ -85,7 +85,6 @@ header{
     transition: all 0.2s;
     margin: 20px;
     border-radius: 5px;
-    margin-left: 80px;
   }
   button:hover{
     background-color: rgb(82, 77, 77);
@@ -101,6 +100,19 @@ header{
     margin-left: 80px;
   }
   .btn:hover{
+    background-color: rgb(82, 77, 77);
+  }
+  .hbtn{
+    padding: 10px 20px;
+    background-color: rgb(46, 42, 42);
+    color: white;
+    font-size: 16px;
+    transition: all 0.2s;
+    margin: 20px;
+    border-radius: 5px;
+    margin-left: 80px;
+  }
+  .hbtn:hover{
     background-color: rgb(82, 77, 77);
   }
   #p{
