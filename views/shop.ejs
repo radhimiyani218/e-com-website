@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>home</title>
+    <link rel="stylesheet" href="/css/indx.css">
+   <style>
+    .content-div{
+      width: 70%;
+     margin-left: 20px;
+     margin-top: 30px;
+     
+    } 
+    img {
+     
+      margin-left: 30px;
+      margin-top: 20px;
+      box-shadow: 0px 0px 2px rgb(129, 12, 12);
+    
+      }
+      #box h2,span{
+        font-family: sans-serif;
+       margin-left: 50px;
+       padding: 5px;
+       color: rgb(129, 12, 12);
+       margin-top: 30px;
+       
+      }
+      #box h4{
+        margin-left: 55px;
+        margin-top: 5px;
+        font-family: sans-serif;
+        color: rgb(129, 12, 12);
+      }
+      #box h3{
+        font-family: sans-serif;
+       margin-left: 50px;
+       padding: 5px;
+       color: rgb(129, 12, 12);
+       
+      }
+      #box p{
+        font-family: sans-serif;
+       margin-left: 50px;
+       padding: 5px;
+       color: rgba(160, 78, 78, 0.878);
+       
+      }
+      #part1{
+  
+      font-size: 20px;
+      margin-top: 60px;
+     
+       }
+       #lth,#htl,#all,#mobiles,#macbook,#iwatch,#ipad{
+        background-color: transparent;
+        color: rgb(135, 9, 9);
+        border: none;
+        margin: 0;
+        font-size: 20px;
+        margin-top: 10px;
+        font-weight: 500;
+       }
+    
+       #box >div {
+        display: flex;
+       }
+       .list h3{
+        font-family: sans-serif;
+        font-size: 25px;
+        margin-left: 20px;
+        color: rgb(108, 44, 44);
+        border-bottom: 2px solid rgb(121, 26, 26);
+       }
+       .filter-price h3{
+        font-family: sans-serif;
+        font-size: 25px;
+        margin-left: 20px;
+        color: rgb(108, 44, 44);
+        margin-top: 20px;
+        border-bottom: 2px solid rgb(122, 30, 30);
+       }
+    </style> 
+  </head>
+  <body>
+    <%- include('nav') %>
+    <div class="container">
+      <div class="row">
+        <div id="part1">
+          <div class="list">
+            <h3>Filter By</h3>
+            <button id="all" value="all">AllProduct</button>
+            <br />
+            <button value="macbook" id="macbook">MacBook</button>
+            <br />
+            <button value="mobiles" id="mobiles">Mobiles</button>
+            <br />
+            <button value="iwatch" id="iwatch">iWatch</button
+              ><br />
+            <button value="ipad" id="ipad">iPad</button>
+            <br />
+          </div>
+          <div class="filter-price">
+            <h3>Sorting By</h3>
+            <button id="lth">Low to High</button><br />
+            <button id="htl">High to Low</button><br />
+          </div>
+          <div id="srch">
+            <i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Search">
+          </div>
+        </div>
+        <div class="content-div row">
+          <div id="box"></div>
+        </div>
+       
+      </div>
+    </div>
+    <%- include('footer') %>
+  </body>
+  <script>
+    const handlecart = (id) => {
+      console.log(id);
+      fetch("/product/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productID: id }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    };
+
+    fetch("/product")
+      .then((response) => response.json())
+      .then((response) => display(response))
+      .catch((error) => console.log(error));
+
+    const display = (data) => {
+      console.log(data);
+      document.getElementById("box").innerHTML = "";
+      data.map((ele) => {
+        let img = document.createElement("img");
+        img.src = ele.img;
+        img.style.width = "300px";
+        img.style.height = "300px";
+        let title = document.createElement("h2");
+        title.innerHTML =  ele.title;
+        let price = document.createElement("h3");
+        price.innerHTML = `$ ${ele.price}`;
+        let desc = document.createElement("p");
+        desc.innerHTML = ele.desc;
+        // let category = document.createElement("h3");
+        // category.innerHTML = ele.category;
+        let size = document.createElement("h4");
+        size.innerHTML = ele.size;
+        let btn1 = document.createElement("button");
+        btn1.setAttribute("class", "hbtn");
+        btn1.innerHTML = "Add to Cart";
+        btn1.addEventListener("click", () => {
+          handlecart(ele._id);
+        });
+        let div = document.createElement("div");
+        div.append(img);
+        document.getElementById("box").append(div);
+        let div2 = document.createElement("div");
+        div2.append(title, price, desc, size, btn1);
+        document.getElementById("box").append(div2);
+        let div3 = document.createElement("div");
+        div3.append(div,div2);
+        document.getElementById("box").append(div3);
+      });
+    };
+
+    const allproducts = (alldata) => {
+    fetch(`/product/allproduct`)
+        .then((response) => response.json())
+        .then((response) => display(response))
+        .catch((error) => console.log(error))
+}
+
+const filterdata = (uifilter) => {
+    fetch(`/product/filter?category=${uifilter}`)
+        .then((response) => response.json())
+        .then((response) => display(response))
+        .catch((error) => console.log(error))
+}
+
+document.getElementById("all").addEventListener("click", () => allproducts("all"))
+document.getElementById("mobiles").addEventListener("click", () => filterdata("mobiles"))
+document.getElementById("macbook").addEventListener("click", () => filterdata("macbook"))
+document.getElementById("iwatch").addEventListener("click", () => filterdata("iwatch"))
+document.getElementById("ipad").addEventListener("click", () => filterdata("ipad"))
+
+const pricefilter = (sortprice) => {
+    fetch(`/product/sort?sort=${sortprice}`)
+        .then((response) => response.json())
+        .then((response) => display(response))
+        .catch((error) => console.log(error))
+}
+
+document.getElementById("lth").addEventListener("click", () => pricefilter("lth"))
+document.getElementById("htl").addEventListener("click", () => pricefilter("htl"))
+  </script>
+</html>

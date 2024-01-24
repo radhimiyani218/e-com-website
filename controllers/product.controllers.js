@@ -25,8 +25,8 @@ const admin=async(req,res)=>{
     res.send(data)
 }
 
-const home=async(req,res)=>{
-    res.render("home")
+const shop=async(req,res)=>{
+    res.render("shop")
 }
 
 const productpage=async(req,res)=>{
@@ -35,6 +35,9 @@ const productpage=async(req,res)=>{
 
 const getuser=async(req,res)=>{
     res.render("users")
+}
+const home=async(req,res)=>{
+    res.render("home")
 }
 
 // cart
@@ -67,6 +70,43 @@ const updatecart=async(req,res)=>{
      res.send({update:data})
 }
 
+const allproduct = async(req,res) =>{
+    // const {id} = req.body
+    try {
+        let data = await product.find()
+        res.send(data)
+    } 
+    catch (error) {
+        res.send({ msg: error })
+    }
+}
+
+
+const filltercategory = async (req, res) => {
+    const { category } = req.query
+
+    console.log(category);
+    try {
+        let data = await product.find({ category })
+        res.send(data)
+    }
+    catch (error) {
+        res.send({ msg: error })
+    }
+}
+
+const pricefilter = async (req, res) => {
+    const { sort } = req.query
+    if (sort == "lth") {
+        const data = await product.find().sort({ price: 1 })
+        res.send(data)
+    }
+
+    else if (sort == "htl") {
+        const data = await product.find().sort({ price: -1 })
+        res.send(data)
+    }
+}
 let razorpay = new Razorpay({
     key_id: "rzp_test_K5oH0ht3uj6cTB",
     key_secret:"cdTVpD4jbzmOmTFv6vkoSomE"
@@ -88,4 +128,4 @@ const payment = (req, res) => {
     })
 }
 
-module.exports={create,createBy,productpage,admin,getuser,home,carts,cartfind,getcart,updatecart,payment}
+module.exports={home,create,createBy,productpage,admin,getuser,shop,carts,cartfind,getcart,updatecart,payment,allproduct,pricefilter,filltercategory}

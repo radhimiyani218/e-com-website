@@ -6,39 +6,51 @@
     <title>cart</title>
   </head>
   <style>
-      .container {
-        max-width: 1140px;
-        margin: auto;
-      }
-      #box {
-     display: grid;
-     grid-template-columns: repeat(3, 1fr);
-     margin-top: 50px;
+    .content-div{
+      width: 70%;
+     margin-left: 20px;
+     margin-top: 30px;
      
-    }
-      img {
+    } 
+    img {
+     
+      margin-left: 30px;
       margin-top: 20px;
-      border-radius: 12px;
-      margin-left: 40px;
-      margin-bottom: 30px;
-      box-shadow: 0px 0px 15px rgb(195, 193, 193);
+      box-shadow: 0px 0px 2px rgb(129, 12, 12);
+    
       }
-      h2,h3,h4,p,span{
+      #box h2{
         font-family: sans-serif;
        margin-left: 50px;
        padding: 5px;
-       color: rgb(58, 56, 56);
+       color: rgb(129, 12, 12);
+       margin-top: 40px;
        
       }
+      #box h3{
+        font-family: sans-serif;
+       margin-left: 50px;
+       padding: 5px;
+       color: rgb(129, 12, 12);
+       margin-top: 5px;
+       
+      }
+       #box >div {
+        display: flex;
+       }
+       button{
+        margin-left: 90px;
+       }
+      
   </style>
   <body>
     <%- include('nav') %>
    <div class="container">
     <div id="box">
     </div>
-    <div id="box1"></div>
+    <!-- <div id="box1"></div> -->
    </div>
-
+   <%- include('footer') %>
   </body>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
@@ -68,7 +80,7 @@ const handlePayment = async (amount) => {
       const display = (data) => {
         let totalprice=0
       document.getElementById("box").innerHTML = "";
-      document.getElementById("box1").innerHTML = "";
+      // document.getElementById("box1").innerHTML = "";
       data.map((element) => {
         let ele=element.productID
         console.log(ele);
@@ -76,10 +88,11 @@ const handlePayment = async (amount) => {
         let img = document.createElement("img");
         img.src = ele.img;
         img.style.width = "250px";
-        let title = document.createElement("h1");
-        title.innerHTML = `title:${ele.title}`;
-        let price = document.createElement("h2");
-        price.innerHTML = ele.price;
+        img.style.height = "250px";
+        let title = document.createElement("h2");
+        title.innerHTML = ele.title;
+        let price = document.createElement("h3");
+        price.innerHTML = `$${ele.price}`;
         let btn2 = document.createElement("button");
         btn2.innerHTML = "+";
         btn2.addEventListener("click", () => updateQty(element._id, +1));
@@ -91,19 +104,19 @@ const handlePayment = async (amount) => {
         
 
         let div = document.createElement("div");
-        div.append(
-          img,
-          title,
-          price,
-          btn2,
-          qty,
-          btn1
-        );
+        div.append(img);
       document.getElementById("box").append(div);
+      let div2 = document.createElement("div");
+        div2.append(title, price, btn2,qty,btn1);
+        document.getElementById("box").append(div2);
+        let div3 = document.createElement("div");
+        div3.append(div,div2);
+        document.getElementById("box").append(div3);
       });
+
       let priceBtn = document.createElement("button")
-    priceBtn.innerHTML = `Total Price: ${totalprice}`
-    document.getElementById("box1").append(priceBtn)
+    priceBtn.innerHTML = `Total Price: $ ${totalprice}`
+    document.getElementById("box").append(priceBtn)
     priceBtn.addEventListener("click", () => handlePayment(totalprice))
     };
 

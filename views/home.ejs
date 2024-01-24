@@ -1,102 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>home</title>
-    <style>
-      .container {
-        max-width: 1140px;
-        margin: auto;
-      }
-      #box {
-     display: grid;
-     grid-template-columns: repeat(3, 1fr);
-     margin-top: 50px;
-     
-    }
-      img {
-      margin-top: 20px;
-      border-radius: 12px;
-      margin-left: 40px;
-      margin-bottom: 30px;
-      box-shadow: 0px 0px 15px rgb(195, 193, 193);
-      }
-      h2,h3,h4,p,span{
-        font-family: sans-serif;
-       margin-left: 50px;
-       padding: 5px;
-       color: rgb(58, 56, 56);
-       
-      }
-    </style>
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
     <%- include('nav') %>
-    <div class="container">
-        <div id="box"></div>
-        <div>
-  </body>
-  <script>
+    <div class="banner-img">
+        <section class="overlay">
+            <div class="container">
+                <div class="banner">
+                        <h2 class="open">Welcome to Our <span>Website</span></h2>
+                        <!-- <p class="open p-open">Delivering great items for more than 22 years!</p> -->
+                       <div class="shopbtn">
+                        <button><a href="/product/shop">Shop All Items</a></button>
+                       </div>
+                    </div>
+                    
+                </div>
+        </section>
+    </div>
 
-const handlecart = (id) => {
-    console.log(id);
-    fetch("/product/cart", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ productID: id }),
-    })
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-  }
+    <!-- phones -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                    <h2 class="text-center1">See What's New</h2>
+                </div>
+                <div class="img-pro row">
+                    <div class="w-33">
+                            <a href="/product/shop"><img src="/img/img-1.jpg" alt=""></a>
+                            <div class="img-content">
+                                <p class="p">SPECIAL OFFER</p>
+                                <h2>iphone 14 Pro Max</h2>
+                              
+                            </div>
+                        </div>
+                        <div class="w-33">
+                            <a href="/product/shop"><img src="/img/img-2.jpg" alt=""></a>
+                            <div class="img-content">
+                                <p class="p">New</p>
+                                <h2>2022 Apple Watch SE</h2>
+                            
+                            </div>
+                        </div>
+                        <div class="w-33">
+                            <a href="/product/shop"><img src="/img/img-3.jpg" alt=""></a>
+                            <div class="img-content">
+                                <p class="p">SPECIAL OFFER</p>
+                                <h2>2022 10.9-inch iPad</h2>
+                             
+                            </div>
+                        </div>
+                        <div class="w-33">
+                            <a href="/product/shop"><img src="/img/img-7.jpg" alt=""></a>
+                            <div class="img-content lo">
+                                <p class="p">SALE</p>
+                                <h2>16-inch MacBook Pro</h2>
+                             
+                            </div>
+                        </div>
+                        <div class="w-33">
+                           <a href="/product/shop"> <img src="/img/img-9.jpg" alt=""></a>
+                            <div class="img-content lo">
+                                <p class="p">NEW</p>
+                                <h2>iMac</h2>
+                              
+                            </div>
+                        </div>
+                        <div class="w-33">
+                            <a href="/product/shop"> <img src="/img/img-14.png" alt=""></a>
+                            <div class="img-content">
+                                <p class="p">SALE</p>
+                                <h2>Smart Folio for iPad Air</h2>
+                               
+                            </div>
+                        </div>
+                </div> 
+             
+            </div>
+            <div class="view-more">
+                <button class="view-btn"><a href="/product/shop">View More</a></button>
+            </div>
+        </div>
+    </section>
 
+    <!-- shop -->
 
-    fetch("/product")
-      .then((response) => response.json())
-      .then((response) => display(response))
-      .catch((error) => console.log(error));
+    <section>
+        <div class="container">
+           <div class="shop-img row padding">
+            <div class="w-50">
+                <img src="/img/shop-2.jpg" alt="">
+            </div>
+            <div class="w-50">
+                <div class="shop-content">
+                    <h1>Stores near you</h1>
+                    <p>Imagine staff are professionally trained and can provide on everything Apple.</p>
+                    <button>connect</button>
+                </div>
+            </div>
+           </div>
+           <div class="shop-img row">
+            <div class="w-50">
+                <div class="shop-content">
+                    <h1>Why imagine</h1>
+                    <p>With more than adecade's experience in 
+                        Premium Retail, we are your local Apple Expert.</p>
+                    <button>consult the experts</button>
+                </div>
+            </div>
+            <div class="w-50">
+                <!-- <img src="/img/shop-6.png" alt=""> -->
+            </div>
+           </div>
+        </div>
+    </section>
 
-    const display = (data) => {
-      console.log(data);
-      document.getElementById("box").innerHTML = "";
-      data.map((ele) => {
-        let img = document.createElement("img");
-        img.src = ele.img;
-        img.style.width = "300px";
-        let title = document.createElement("h2");
-        title.innerHTML = `Title:${ele.title}`;
-        let price = document.createElement("h3");
-        price.innerHTML = `Price:${ele.price}`;
-        let desc = document.createElement("p");
-        desc.innerHTML = `Desc:${ele.desc}`;
-        let category = document.createElement("h3");
-        category.innerHTML = `Category:${ele.category}`;
-        let size = document.createElement("h4");
-        size.innerHTML =`Size:${ele.size}`;
-        let stock = document.createElement("span");
-        stock.innerHTML = `Stock:${ele.stock}`;
-        let colour = document.createElement("p");
-        colour.innerHTML = `Colour:${ele.colour}`;
-        let btn1 = document.createElement("button");
-        btn1.setAttribute("class","hbtn")
-        btn1.innerHTML = "Add to Cart";
-        btn1.addEventListener("click", () => {
-        handlecart(ele._id);
-      })
-        let div = document.createElement("div");
-        div.append(
-          img,
-          title,
-          price,
-          desc,
-          category,
-          size,
-          stock,
-          colour,
-          btn1
-        );
-        document.getElementById("box").append(div);
-      });
-    };
-  </script>
+    <!-- view -->
+
+    <section>
+                <div class="container">
+                    <div class="section-title">
+                        <h2 class="text-center2">View All Apple Product</h2>
+                    </div>
+                </div>
+            <div class="view-box row">
+                <div class="w-10">
+                        <img src="/img/view-1.png" alt="">
+                        <div class="view-content">
+                            <h3>Mac</h3>
+                            <p>From $1000</p>
+                        </div>
+                    </div>
+                    <div class="w-10">
+                        <img src="/img/view-2.png" alt="">
+                        <div class="view-content">
+                            <h3>ipad</h3>
+                            <p>From $2000</p>
+                        </div>
+                    </div>
+                    <div class="w-10">
+                        <img src="/img/view-3.png" alt="">
+                        <div class="view-content">
+                            <h3>iphone</h3>
+                            <p>From $3000</p>
+                        </div>
+                    </div>
+                    <div class="w-10">
+                        <img src="/img/view-4.png" alt="">
+                        <div class="view-content">
+                            <h3>iwatch</h3>
+                            <p>From $4000</p>
+                        </div>
+                    </div>
+                    <div class="w-10">
+                        <img src="/img/view-5.png" alt="">
+                        <div class="view-content">
+                            <h3>Airpods</h3>
+                            <p>From $6000</p>
+                        </div>
+                    </div>
+                    <div class="w-10">
+                        <img src="/img/view-6.png" alt="">
+                        <div class="view-content">
+                            <h3>Mac</h3>
+                            <p>From $5000</p>
+                        </div>
+                    </div>
+                    <div class="w-10">
+                        <img src="/img/view-7.png" alt="">
+                        <div class="view-content">
+                            <h3>iphone</h3>
+                            <p>From $7000</p>
+                        </div>
+                    </div>
+                     <div class="w-10">
+                        <img src="/img/view-5.png" alt="">
+                        <div class="view-content">
+                            <h3>Airpods</h3>
+                            <p>From $4000</p>
+                        </div>
+                    </div>
+                    <div class="w-10">
+                        <img src="/img/view-2.png" alt="">
+                        <div class="view-content">
+                            <h3>ipad</h3>
+                            <p>From $3000</p>
+                        </div>
+                    </div>
+                    <div class="w-10">
+                        <img src="/img/view-3.png" alt="">
+                        <div class="view-content">
+                            <h3>iphone</h3>
+                            <p>From $1000</p>
+                        </div>
+                    </div>
+       <div>
+        
+    </section>
+
+ 
+    <%- include('footer') %>
+</body>
 </html>

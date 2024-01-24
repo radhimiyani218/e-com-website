@@ -4,35 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>users</title>
-    <!-- <link rel="stylesheet" href="css/index.css"> -->
     <style>
-      .container {
-        max-width: 1140px;
-        margin: auto;
-      }
-      #box {
-     display: grid;
-     grid-template-columns: repeat(3, 1fr);
-     margin-top: 50px;  
-    }
-      img {
+    .content-div{
+      width: 70%;
+     margin-left: 20px;
+     margin-top: 30px;
+     
+    } 
+    img {
+     
+      margin-left: 30px;
       margin-top: 20px;
-      border-radius: 12px;
-      margin-left: 40px;
-      margin-bottom: 30px;
-      box-shadow: 0px 0px 15px rgb(195, 193, 193);
+    
       }
-      h2,h3,h4,p,span{
+      #box h4{
+        margin-left: 55px;
+        margin-top: 5px;
+        font-family: sans-serif;
+        color: rgb(129, 12, 12);
+      }
+      #box h3{
         font-family: sans-serif;
        margin-left: 50px;
        padding: 5px;
-       color: rgb(58, 56, 56);
+       color: rgb(129, 12, 12);
+       
       }
+    
+       #box{
+        display: flex;
+       }
     </style>
 </head>
 <body>
     <%- include('nav') %>
+   <div class="container">
     <div id="box"></div>
+   </div>
+    <%- include('footer') %>
 </body>
 <script>
     const display = (data) => {
@@ -41,24 +50,16 @@
         let img = document.createElement("img");
         img.src = ele.img;
         img.style.width="200px"
-        let title = document.createElement("h2");
+        let title = document.createElement("h3");
         title.innerHTML = ele.title;
         let price = document.createElement("h3");
         price.innerHTML = ele.price;
-        let desc = document.createElement("p");
-        desc.innerHTML = ele.desc;
         let category = document.createElement("h3");
         category.innerHTML = ele.category;
-        let stock = document.createElement("span");
-        stock.innerHTML =ele.stock;
         let size = document.createElement("h4");
         size.innerHTML = ele.size;
-        let colour = document.createElement("p");
-        colour.innerHTML = ele.colour;
-        let btn1 = document.createElement("button");
-        btn1.innerHTML = "Add to Cart";
         let div = document.createElement("div");
-        div.append(img, title,price, desc,category,size,stock,colour,btn1);
+        div.append(img, title,price,category,size);
         document.getElementById("box").append(div);
       });
     };
