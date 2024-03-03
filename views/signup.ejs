@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="/css/index.css">
 <body>
     <%- include('nav') %>
-    <form  action="/user/signup"  method="post" id="form">
-        <label>Username </label>
-        <input type="text" name="username" id="username" placeholder="Enter your name" required>
-        <label>Email </label>
-        <input type="text" name="email" id="email" placeholder="abc@gmail.com" required>
-        <label>Password </label> 
+    <form  action="/user/signup"  method="post" id="sform">
+        <h1>Create Account</h1>
+       <div class="main-form">
+        <label>Username </label><br>
+        <input type="text" name="username" id="username" placeholder="Enter your name" required><br>
+        <label>Email </label><br>
+        <input type="text" name="email" id="email" placeholder="abc@gmail.com" required><br>
+        <label>Password </label> <br>
         <input type="text" name="password" id="password" placeholder="At least 6 characters" required><br><br>
+       <div class="row">
         <select name="role" id="role">
             <option value="user">User</option>
             <option value="admin">Admin</option>
-        </select>
-        <button type="submit" class="btn">Sign up</button>
+        </select><br><br>
+        <button type="submit" class="btn">SIGNUP</button>
+       </div>
         <p id="p">Already have an account ? <a href="/user/login">Sign In</a></p>
+       </div>
     </form>
 </body>
 </html>

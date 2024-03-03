@@ -9,30 +9,26 @@
       width: 70%;
      margin-left: 20px;
      margin-top: 30px;
-     
     } 
     img {
-     
       margin-left: 30px;
       margin-top: 20px;
-    
-      }
-      #box h4{
-        margin-left: 55px;
-        margin-top: 5px;
-        font-family: sans-serif;
-        color: rgb(129, 12, 12);
       }
       #box h3{
         font-family: sans-serif;
        margin-left: 50px;
        padding: 5px;
-       color: rgb(129, 12, 12);
-       
+       color: rgb(88, 85, 85); 
       }
-    
+      #box h4{
+        font-family: sans-serif;
+       margin-left: 50px;
+       padding: 5px;
+       color: rgba(88, 85, 85, 0.716); 
+      }
        #box{
         display: flex;
+        flex-wrap: wrap;
        }
     </style>
 </head>
@@ -52,21 +48,24 @@
         img.style.width="200px"
         let title = document.createElement("h3");
         title.innerHTML = ele.title;
-        let price = document.createElement("h3");
-        price.innerHTML = ele.price;
-        let category = document.createElement("h3");
-        category.innerHTML = ele.category;
-        let size = document.createElement("h4");
-        size.innerHTML = ele.size;
+        let price = document.createElement("h4");
+        price.innerHTML = `$ ${ele.price}`;
         let div = document.createElement("div");
-        div.append(img, title,price,category,size);
+        div.append(img, title,price);
         document.getElementById("box").append(div);
       });
     };
   
-    fetch("/product/admin")
-      .then((response) => response.json())
-      .then((response) => display(response))
-      .catch((error) => console.log(error));
+    
+  const get = () => {
+
+fetch(`/product/admin`)
+  .then((res) => res.json())
+  .then((data) => {console.log(data)
+    display(data)
+  })
+  .catch((err) => console.log(err))
+}
+get();
   </script>
 </html>

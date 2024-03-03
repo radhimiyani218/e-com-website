@@ -1,7 +1,7 @@
 const product=require("../models/product.schema")
 const cart=require("../models/cart.schema")
 const Razorpay = require("razorpay")
-
+const Fuse=require("fuse.js")
 const create=async(req,res)=>{
     try{
         let data=await product.find()
@@ -48,6 +48,7 @@ const carts=async(req,res)=>{
     let data=await cart.create(req.body)
     console.log(data);
     res.send(data)
+ 
 }
 const cartfind=async(req,res)=>{
     console.log(req.user);
@@ -64,7 +65,7 @@ const updatecart=async(req,res)=>{
      let data=await cart.findById(id)
      data.qty=data.qty+qty
      await data.save()
-     if(data.qty==0){
+     if(data.qty==0){ 
         await cart.findByIdAndDelete(id)
      }
      res.send({update:data})
@@ -128,4 +129,31 @@ const payment = (req, res) => {
     })
 }
 
-module.exports={home,create,createBy,productpage,admin,getuser,shop,carts,cartfind,getcart,updatecart,payment,allproduct,pricefilter,filltercategory}
+// singlepage
+
+const singlepage = async (req, res) => {
+    const { id } = req.params;
+      let singlepage = await product.findById(id);
+      res.render("singlepage", { singlepage });
+  };
+  const search = async(req,res)=>{
+   
+        const {query} = req.query;
+
+        console.log(query);
+        const products = await product.find();
+
+        const options = {
+            // minMatchCharLength:1,
+            keys:["title","category","price"], 
+        }
+
+        const fuse = new Fuse(products,options);
+        const result = fuse.search(query);
+        console.log(result);
+        return res.send(result);
+}
+
+
+
+module.exports={home,create,createBy,productpage,getuser,admin,shop,carts,cartfind,getcart,updatecart,payment,allproduct,pricefilter,filltercategory,singlepage,search}

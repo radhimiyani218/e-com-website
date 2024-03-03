@@ -164,6 +164,7 @@ const otp1=(req,res)=>{
   res.render("otp")
 }
 
+
 const forgotpass = async (req, res) => {
     const { newpassword, confrompassword } = req.body;
 
